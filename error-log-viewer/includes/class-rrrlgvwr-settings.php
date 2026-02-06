@@ -103,6 +103,7 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 							$this->options['count_visible_log']    += $this->options[ $subname ];
 						}
 					} elseif ( ! is_readable( $file ) && isset( $_POST[ $subname ] ) ) {
+						/* translators: %s: file name */
 						$error = sprintf( __( "File %s isn't readable, change permissions to the file", 'error-log-viewer' ), esc_attr( $name ) );
 					}
 				}
@@ -160,7 +161,7 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 
 				if ( empty( $error ) ) {
 					update_option( 'rrrlgvwr_options', $this->options );
-					$message .= __( 'Settings saved', 'gallery-plugin-pro' );
+					$message .= __( 'Settings saved', 'error-log-viewer' );
 				}
 			}
 
@@ -181,8 +182,10 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 			} elseif ( empty( $rrrlgvwr_php_error_path ) ) {
 				$php_error_mes = __( 'Error log filename is not set. Try to logging via WordPress function.', 'error-log-viewer' );
 			} elseif ( ( strpos( $rrrlgvwr_php_error_path, '/' ) === false ) && ( strpos( $rrrlgvwr_php_error_path, '\\' ) === false ) ) {
+				/* translators: %s: file name */
 				$php_error_mes = sprintf( __( 'The current error_log value %s is not supported. Please change it to an absolute path.', 'error-log-viewer' ), esc_attr( $rrrlgvwr_php_error_path ) );
 			} elseif ( ! is_readable( $rrrlgvwr_php_error_path ) ) {
+				/* translators: %s: file name */
 				$php_error_mes = sprintf( __( 'The log file %s does not exist or is inaccessible.', 'error-log-viewer' ), esc_attr( $rrrlgvwr_php_error_path ) );
 			} else {
 				$php_error_mes = $rrrlgvwr_php_error_path;
@@ -358,7 +361,8 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 					<th><?php esc_html_e( 'Email Notification', 'error-log-viewer' ); ?></th>
 					<td>
 						<input class="bws_option_affect" data-affect-show="#rrrlgvwr-notifications-table" type="checkbox" name="rrrlgvwr_send_email" value="1" <?php checked( $this->options['send_email'] ); ?> />
-						<span class="bws_info"><?php esc_html_e( 'Enable to receive email notifications.', 'error-log-viewer' ); ?></span>
+						<span class="bws_info"><?php esc_html_e( 'Enable to receive email notifications.', 'error-log-viewer' ); ?></span><br />
+						<span class="bws_info"><?php esc_html_e( 'An email will be sent if there were new errors in the selected log files during the selected time, and if there were users on the site at the required time for the WP Cron to run.', 'error-log-viewer' ); ?></span>
 					</td>
 				</tr>
 			</table>
